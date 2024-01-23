@@ -37,7 +37,13 @@ const EXAMPLE_DATA = {
 /* const firstCard = Card(EXAMPLE_DATA);
 renderElement(firstCard);*/
 
-fetchDataAndRender();
+const characters = await fetchDataAndRender();
+if (characters !== null) {
+  characters.forEach((character) => {
+    let card = Card(character);
+    renderElement(card);
+  });
+}
 
 // --v-- your code below this line --v--
 
@@ -45,11 +51,6 @@ async function fetchDataAndRender() {
   const respose = await fetch("https://swapi.dev/api/people");
   const data = await respose.json();
   const characters = data.results;
-  if (characters !== null) {
-    characters.forEach((character) => {
-      let card = Card(character);
-      renderElement(card);
-    });
-  }
+  return characters;
   // ?
 }
